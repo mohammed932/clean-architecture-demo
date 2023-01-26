@@ -12,8 +12,8 @@ class PostDetailsInitial extends PostDetailsState {}
 class PostDetailsLoadingState extends PostDetailsState {}
 
 class PostDetailsErrorState extends PostDetailsState {
-  final Failure error;
-  const PostDetailsErrorState({required this.error});
+  final Failure failure;
+  const PostDetailsErrorState({required this.failure});
 }
 
 class PostDetailsLoadedState extends PostDetailsState {

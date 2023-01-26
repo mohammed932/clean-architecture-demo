@@ -8,7 +8,7 @@ class PostRemoteDataSourceImpl implements PostRemoteDataSource {
   @override
   Future<List<PostModel>> getPosts() async {
     try {
-      final response = await network.get('post');
+      final response = await network.get('posts');
       final List<PostModel> posts = response.map<PostModel>((json) => PostModel.fromJson(json)).toList();
       return posts;
     } catch (e) {

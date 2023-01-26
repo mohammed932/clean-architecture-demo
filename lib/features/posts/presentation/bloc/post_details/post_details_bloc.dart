@@ -15,7 +15,7 @@ class PostDetailsBloc extends Bloc<PostDetailsEvent, PostDetailsState> {
         emit(PostDetailsLoadingState());
         final response = await postDetailsUseCase(1);
         response.fold(
-          (failure) => emit(PostDetailsErrorState(error: failure)),
+          (failure) => emit(PostDetailsErrorState(failure: failure)),
           (post) => emit(PostDetailsLoadedState(post: post)),
         );
       }

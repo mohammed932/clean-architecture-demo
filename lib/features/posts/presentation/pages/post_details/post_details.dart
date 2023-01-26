@@ -9,11 +9,9 @@ class PostDetailsScreen extends StatefulWidget {
 }
 
 class _PostDetailsScreenState extends State<PostDetailsScreen> {
-  final PostDetailsData _postDetailsData = PostDetailsData();
   @override
   void initState() {
     super.initState();
-    _postDetailsData.getPostDetails(widget.postId);
   }
 
   @override
@@ -24,23 +22,22 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
-        child: BlocBuilder<GenericCubit<PostEntity?>, GenericCubitState<PostEntity?>>(
-          bloc: _postDetailsData.postDetailsCubit,
+        child: BlocBuilder<PostDetailsBloc, PostDetailsState>(
           builder: (context, state) {
-            if (state is GenericUpdatedState) {
+            if (state is PostDetailsLoadedState) {
               return Column(
                 children: [
                   Card(
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(20.0),
-                      child: Text(state.data!.body),
+                      child: Text(state.post.body),
                     ),
                   )
                 ],
               );
-            } else if (state is GenericErrorState) {
-              final error = Utils.tryCast<ServerFailure>(state.responseError);
+            } else if (state is PostDetailsErrorState) {
+              final error = Utils.tryCast<ServerFailure>(state.failure);
               return Center(
                 child: Text(error!.serverException.message),
               );
